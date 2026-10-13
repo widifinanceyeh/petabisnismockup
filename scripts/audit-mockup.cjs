@@ -1,0 +1,21 @@
+// Build gate: stop deployment if API/network access or data limits change unexpectedly.
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.resolve(__dirname,'..');
+const get = name => fs.readFileSync(path.join(root,name),'utf8');
+const api=get('src/api.js'), data=get('src/mockData.js');
+const autosave=get('src/hooks/useSimpanOtomatis.js');
+const config=get('src/config.js'), publicConfig=get('public/konfigurasi.js');
+const all = [];
+const check=(ok,msg)=>{if(!ok)throw new Error('AUDIT GAGAL: '+msg);all.push(msg)};
+check(!/\bfetch\s*\(|XMLHttpRequest|sendBeacon|axios|https?:\/\//.test(api), 'API tanpa komunikasi jaringan');
+check(!/script\.google\.com\/macros|REACT_APP_API_URL|AKfycb/.test(config+publicConfig+api), 'Tidak ada endpoint/konfigurasi produksi');
+check(/window\.PB_API_URL\s*=\s*["']{2}/.test(publicConfig), 'URL backend kosong');
+check(!/setTimeout\s*\(|setInterval\s*\(|fetch\s*\(/.test(autosave), 'Simpan otomatis sepenuhnya nonaktif');
+const ayat = data.slice(data.indexOf('export const CONTOH_AYAT'),data.indexOf('const AKSI'));
+const peta = data.slice(data.indexOf('const URUSAN_ASLI'),data.indexOf('export const CONTOH_PETA'));
+check((ayat.match(/\bid:\s*'B\d{3}\.\d{2}'/g)||[]).length===5,'Jumlah ayat tepat 5');
+check((peta.match(/\['[ABC]\d\.\d+'/g)||[]).length===5,'Jumlah peta tepat 5');
+const mutasi=['saveUrusan','saveJejak','createJejak','savePutusan','saveKembar','saveRedaksi','terapkanRedaksi','saveTurunan','savePutusanPasal','saveHasilRapat','saveCatatanRapat','bekukanVersi'];
+for(const x of mutasi)check(new RegExp('\\b'+x+'\\s*:\\s*tolak\\b').test(api), 'Aksi tulis ditolak: '+x);
+console.log('LULUS:',all.length,'pemeriksaan keamanan mockup');
