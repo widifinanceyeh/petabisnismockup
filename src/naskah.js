@@ -52,7 +52,6 @@ const janji = {};
 
 const basi = { init: false, telaah: false, teks: false, bab: {} };   // tidak lagi dipakai sejak v5.6 (tetap false)
 const MEDAN_PAKET = ['init', 'pasal', 'telaah', 'kepatuhan', 'luar', 'hasilRapat', 'turunan', 'teks'];
-const JEDA_CEK_MS = 120000;
 const paketV = { n: '', h: '' };
 const janjiPaket = {};
 let hukumLengkap = false;     // bunyi seluruh kutipan dasar hukum sudah ada (paket h)

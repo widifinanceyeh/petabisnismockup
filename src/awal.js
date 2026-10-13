@@ -14,7 +14,6 @@ import { api } from './api';
  * tergambar, supaya muatan pembuka lebih ringan.
  */
 
-const KUNCI_SNAPSHOT = 'pb-mockup2026.snapshot.v1';
 const JEDA_PERIKSA_MS = 30000;
 
 let keadaan = {

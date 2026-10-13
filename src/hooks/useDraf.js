@@ -12,7 +12,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
  * @param {*} awal        nilai bila belum ada draf (nilai tersimpan di server)
  * @return {[nilai, setNilai, lepas, adaDraf]}
  */
-const AWALAN = 'pb-mockup2026.draf.disabled.';
 
 export function bacaDraf(kunci) { return undefined; }
 
