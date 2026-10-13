@@ -34,7 +34,19 @@ pass((await api.dasarHukum(data.MOCK_RUJUKAN)).baris.length>0,'aturan sim visibl
 pass((await api.dasarHukum('other')).ada===false,'other rules unavailable');
 pass((await api.rekapRapat('2026-10-13')).butir.length>0, 'meeting log');
 pass((await api.bandingVersi('')).daftar.length===1,'snapshot comparison list');
-pass((await api.naskahTurunan()).dokumen.length===2,'derived doc examples');
+const turun=await api.naskahTurunan();
+pass(turun.dokumen.length===3,'three derived document examples');
+pass(Array.isArray(turun.pilihanStatus) && turun.pilihanStatus.length>=3,'status dropdown has options (prevents blank page)');
+pass(turun.penetap.every(p=>typeof p==='string'),'valid document issuer options');
+for (const d of turun.dokumen) {
+  pass(d.baris.length>0 && d.baris.every(b=>data.ID_AYAT_DIIZINKAN.has(b.id)), 'derived docs cite only allowed ayat '+d.id);
+  pass(d.urusan.length>0 && d.urusan.every(id=>data.ID_PETA_DIIZINKAN.has(id)), 'derived docs map only allowed peta '+d.id);
+  if (d.drafTautan) {
+    pass(/^\.\/contoh-dokumen\/dt0[12]\.html$/.test(d.drafTautan), 'document preview uses local link '+d.id);
+    pass(fs.existsSync(path.join(process.cwd(),'public',d.drafTautan)), 'offline document exists '+d.id);
+  }
+}
+pass(source('src/pages/TurunanPage.js').includes('T.pilihanStatus.map'), 'original status form retained');
 pass((await api.naskahTelaah()).urusan.length===5,'telaah covers all five peta');
 pass((await api.naskahHasilRapat()).pilihan.length>0,'meeting results available');
 const writes=['saveUrusan','saveJejak','createJejak','savePutusan','saveKembar','saveRedaksi','terapkanRedaksi','saveTurunan','savePutusanPasal','saveHasilRapat','saveCatatanRapat','bekukanVersi'];

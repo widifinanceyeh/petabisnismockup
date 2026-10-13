@@ -108,17 +108,42 @@ export const MOCK_TELAAH = {
   kerja: { permen: { SEBAGIAN: 2, 'BELUM ADA': 0 }, jejakBelum: 0 }
 };
 export const MOCK_TURUNAN = {
-  ada: true, perAyat: true, penetap: ['Rektor', 'Yayasan'],
+  ada: true, perAyat: true,
+  penetap: ['Rektor', 'Yayasan'],
+  // Digunakan dropdown status pada FormDok (Mode Kerja). Harus selalu berupa array.
+  pilihanStatus: ['Belum ada', 'Penyusunan', 'Ada'],
   dokumen: [
-    {id:'DT01', dokumen:'Peraturan Rektor tentang Evaluasi Program Akademik (CONTOH)',
-      penetap:'Rektor', status:'Penyusunan', catatan:'Dokumen fiktif, tidak tersambung Google Docs.',
-      dasar:'Pasal 1 ayat (2)', pokok:'Evaluasi program akademik', drafJudul:'', drafTautan:'',
-      baris:[{id:'B001.02',pokok:'Mekanisme evaluasi akademik'}], patahId:[]},
-    {id:'DT02', dokumen:'Peraturan Yayasan tentang Tata Kelola Kegiatan (CONTOH)',
-      penetap:'Yayasan', status:'Contoh', catatan:'Dokumen simulasi baca-saja.',
-      dasar:'Pasal 2 ayat (2)', pokok:'Pengesahan kegiatan', drafJudul:'', drafTautan:'',
-      baris:[{id:'B002.02',pokok:'Persetujuan dan pengesahan kegiatan'}], patahId:[]}
-  ], lepas: [], bentrok: [], delegasi: {}
+    {
+      id: 'DT01', dokumen: 'Peraturan Rektor tentang Evaluasi Program Akademik (CONTOH)',
+      penetap: 'Rektor', status: 'Penyusunan',
+      catatan: 'SIMULASI: Contoh dokumen turunan untuk tata cara evaluasi program akademik. Tidak terhubung ke dokumen asli.',
+      dasar: 'Pasal 1 ayat (2)', pokok: 'Evaluasi program akademik',
+      drafJudul: 'Buka contoh draf evaluasi akademik (offline)',
+      drafTautan: './contoh-dokumen/dt01.html',
+      baris: [{ id: 'B001.02', pokok: 'Tahapan, pelaksana, indikator, dan pelaporan evaluasi akademik' }],
+      patahId: [], urusan: ['A1.2']
+    },
+    {
+      id: 'DT02', dokumen: 'Peraturan Yayasan tentang Tata Kelola Kegiatan (CONTOH)',
+      penetap: 'Yayasan', status: 'Ada',
+      catatan: 'SIMULASI: Contoh dokumen penetapan mekanisme telaah dan pengesahan kegiatan; bukan peraturan yang berlaku.',
+      dasar: 'Pasal 2 ayat (2)', pokok: 'Persetujuan dan pengesahan kegiatan',
+      drafJudul: 'Buka contoh dokumen tata kelola (offline)',
+      drafTautan: './contoh-dokumen/dt02.html',
+      baris: [{ id: 'B002.02', pokok: 'Alur pengajuan, telaah, persetujuan, dan pengesahan kegiatan' }],
+      patahId: [], urusan: ['B1.2']
+    },
+    {
+      id: 'DT03', dokumen: 'Peraturan Rektor tentang Perencanaan Kegiatan Unit (CONTOH)',
+      penetap: 'Rektor', status: 'Belum ada',
+      catatan: 'SIMULASI: Contoh kebutuhan dokumen turunan yang belum disusun; tanpa tautan draf.',
+      dasar: 'Pasal 2 ayat (1)', pokok: 'Perencanaan kegiatan unit kerja',
+      drafJudul: '', drafTautan: '',
+      baris: [{ id: 'B002.01', pokok: 'Tahapan penyusunan dan pengajuan rencana kegiatan unit' }],
+      patahId: [], urusan: ['B1.1']
+    }
+  ],
+  lepas: [], bentrok: [], delegasi: {}
 };
 export const MOCK_LUAR = { baris: [], pilihan: ['Dipertahankan', 'Masukkan ke urusan', 'Dihapus'], rekap: { dibawa:0, baru:0, dihapus:0, diputus:0, pasal:0, pasalBelum:0, hapusBelum:0 } };
 export const MOCK_TEKS = { ayat: CONTOH_AYAT.map(a => [a.id, a.pasal, a.nomor, a.teks]) };

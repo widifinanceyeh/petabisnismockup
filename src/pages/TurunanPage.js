@@ -249,7 +249,8 @@ function FormDok({ d, T, teks, milik, namaDok, siap, onBukaPasal, onGalat, onTer
     setF((x) => Object.assign({}, x, { drafTautan: v },
       v.trim() && tahapSusun && x.status === (T.pilihanStatus || [])[0] ? { status: tahapSusun } : {}));
   };
-  const tautanSalah = !!String(f.drafTautan || '').trim() && !/^https?:\/\/\S+$/i.test(String(f.drafTautan || '').trim());
+  const tautanSalah = !!String(f.drafTautan || '').trim() &&
+    !(/^(https?:\/\/\S+|\.\/contoh-dokumen\/dt0[12]\.html)$/i.test(String(f.drafTautan || '').trim()));
   const ubahPokok = (id, v) => setF((x) => Object.assign({}, x, { baris: x.baris.map((b) => (b.id === id ? Object.assign({}, b, { pokok: v }) : b)) }));
   const buang = (id) => setF((x) => Object.assign({}, x, { baris: x.baris.filter((b) => b.id !== id) }));
   const tambah = (id) => setF((x) => (x.baris.some((b) => b.id === id) ? x : Object.assign({}, x, { baris: x.baris.concat([{ id, pokok: '' }]) })));

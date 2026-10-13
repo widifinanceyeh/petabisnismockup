@@ -7,8 +7,10 @@ import { jenisTautan } from '../utils/telaah';
  */
 export default function TautanDraf({ judul, tautan, cadangan, kecil }) {
   const url = String(tautan || '').trim();
-  if (!/^https?:\/\//i.test(url)) return null;
-  const jenis = jenisTautan(url);
+  // Contoh berkas yang disertakan di public/ dibuka secara lokal, bukan Google Docs.
+  const offline = /^\.\/contoh-dokumen\/dt0[12]\.html$/.test(url);
+  if (!offline && !/^https?:\/\//i.test(url)) return null;
+  const jenis = offline ? 'Contoh offline' : jenisTautan(url);
   return (
     <span className={'td-draf' + (kecil ? ' td-draf-kecil' : '')}>
       <a href={url} target="_blank" rel="noopener noreferrer" title={'Buka draf: ' + url}>{String(judul || '').trim() || cadangan || 'Draf'}</a>
