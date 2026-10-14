@@ -4,7 +4,7 @@
  * label kolom, judul halaman). Semuanya berasal dari sheet Cfg_*.
  */
 
-export const APP_VERSION = '5.21.0';
+export const APP_VERSION = '5.22.0';
 
 /**
  * Mockup berdiri sendiri: tidak menerima URL API dari konfigurasi ataupun environment.
@@ -33,7 +33,8 @@ export const STORAGE_KEY = {
   CACHE_NASKAH: 'pb-mockup-2026.nkCache.v54',
   REL_CIUT: 'pb-mockup-2026.relCiut.v55',
   POSISI: 'pb-mockup-2026.posisi.v58',          // v5.8: alamat halaman terakhir (dibuka tanpa alamat = lanjut dari sini)
-  LIHAT: 'pb-mockup-2026.lihatPasal.v58'        // v5.8: sidik pasal saat terakhir dibuka (tanda berubah)
+  LIHAT: 'pb-mockup-2026.lihatPasal.v58',       // v5.8: sidik pasal saat terakhir dibuka (tanda berubah)
+  MAKS_LANGKAH: 'pb-mockup-2026.maksLangkah.v522' // v5.22: riwayat navigasi mockup, sessionStorage
 };
 
 export const TIMEOUT_MS = 60000;
